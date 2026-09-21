@@ -1,4 +1,4 @@
-module github.com/authaas/identity-operations-bindings-postgres-pgx-go
+module github.com/authaas/identity-schema-postgres-bindings-pgx-go
 
 go 1.27.1
 
