@@ -1,0 +1,30 @@
+name: sqlc-gen
+description: Generate Go Bindings from sqlc
+
+inputs:
+  repo:
+    description: The repo containing the source schemas and queries
+    required: true
+  ref_name:
+    description: The ref_name of the source repo to clone
+    required: true
+  repo_path:
+    description: Relative path to clone the source repo
+    default: schema
+
+runs:
+  using: composite
+  steps:
+    - name: Setup mise
+      uses: jdx/mise-action@v4
+
+    - name: Clone ${{ inputs.repo }}
+      uses: actions/checkout@v7
+      with:
+        ref: ${{ inputs.ref_name }}
+        repository: ${{ inputs.repo }}
+        path: ${{ inputs.repo_path }}
+
+    - name: Generate from sqlc
+      shell: bash
+      run: sqlc generate

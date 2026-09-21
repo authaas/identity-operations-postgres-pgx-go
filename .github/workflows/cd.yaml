@@ -1,0 +1,32 @@
+name: CD
+
+run-name: Publish ${{ github.ref_name }}
+
+on:
+  workflow_dispatch:
+  push:
+    tags:
+      - '*.*.*'
+      - '!v*'
+
+jobs:
+  gen:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v7
+        with:
+          ref: ${{ github.ref_name }}
+
+      - name: Generate code from sqlc
+        uses: ./.github/actions/sqlc-gen
+        with:
+          repo: ${{ github.repository_owner }}/identity-schema-postgres
+          ref_name: 0.1.0
+
+      - name: Pop release
+        uses: katastroma/skeuotheke/.github/actions/pop-release@v0
+        with:
+          ecosystem: module
