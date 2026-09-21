@@ -2,6 +2,12 @@
 All notable changes to this project will be documented in this file. See [conventional commits](https://www.conventionalcommits.org/) for commit guidelines.
 
 - - -
+## 0.3.0 - 2026-09-21
+#### Features
+- release at new module - (7905e3e) - Nathan Blair
+
+- - -
+
 ## 0.2.0 - 2026-09-21
 #### Features
 - release at new module - (a2e75d4) - Nathan Blair
