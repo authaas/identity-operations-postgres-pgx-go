@@ -20,11 +20,18 @@ jobs:
         with:
           ref: ${{ github.ref_name }}
 
-      - name: Generate code from sqlc
-        uses: ./.github/actions/sqlc-gen
+      - name: Setup mise
+        uses: jdx/mise-action@v4
+
+      - name: Clone identity-schema-postgres
+        uses: actions/checkout@v7
         with:
-          repo: ${{ github.repository_owner }}/identity-schema-postgres
-          ref_name: 0.1.0
+          ref: 0.1.1
+          repository: ${{ github.repository_owner }}/identity-schema-postgres
+          path: schema
+
+      - name: Generate from sqlc
+        run: sqlc generate
 
       - name: Pop release
         uses: katastroma/skeuotheke/.github/actions/pop-release@v0
